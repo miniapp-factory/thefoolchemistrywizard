@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function ChemistryWizard() {
-  const [mode, setMode] = useState<string | null>(null);
+  const [mode, setMode] = useState<keyof typeof questions | null>(null);
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
   const [feedback, setFeedback] = useState<string>("");
@@ -93,7 +93,7 @@ export default function ChemistryWizard() {
   );
 
   function handleSubmit() {
-    const correct = question && answer.trim().toLowerCase() === questions[mode!][0].a.toLowerCase();
+    const correct = question && answer.trim().toLowerCase() === questions[mode! as keyof typeof questions][0].a.toLowerCase();
     if (correct) {
       setScore(score + 1);
       setStreak(streak + 1);
@@ -109,7 +109,7 @@ export default function ChemistryWizard() {
   }
 
   function handleBossSubmit() {
-    const correct = bossQuestion && bossAnswer.trim().toLowerCase() === bossQuestions[mode!][0].a.toLowerCase();
+    const correct = bossQuestion && bossAnswer.trim().toLowerCase() === bossQuestions[mode! as keyof typeof bossQuestions][0].a.toLowerCase();
     if (correct) {
       setScore(score + 5);
       setStreak(0);
@@ -123,7 +123,7 @@ export default function ChemistryWizard() {
   }
 
   function handleNext() {
-    const list = questions[mode!];
+    const list = questions[mode! as keyof typeof questions];
     const next = list[Math.floor(Math.random() * list.length)];
     setQuestion(next.q);
     setAnswer("");
