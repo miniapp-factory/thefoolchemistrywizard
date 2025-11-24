@@ -160,9 +160,11 @@ export default function ChemistryWizard() {
       question &&
       normalizeAnswer(answer) ===
         normalizeAnswer(questions[mode! as keyof typeof questions][0].a);
+    const newCorrectCount = correctCount + (correct ? 1 : 0);
     if (correct) {
       setScore((prev) => prev + 1);
       setStreak((prev) => prev + 1);
+      setCorrectCount(newCorrectCount);
       setFeedback(`THE FOOL IS PLEASED! Score: ${score + 1}`);
       if (streak + 1 === 5) {
         setBossActive(true);
@@ -173,6 +175,16 @@ export default function ChemistryWizard() {
         `YOU STUMBLE IN IGNORANCE. Correct answer: ${questions[mode!][0].a}`
       );
       setStreak(0);
+    }
+    setAnsweredCount((prev) => prev + 1);
+    if (answeredCount + 1 === totalQuestions) {
+      if (newCorrectCount === totalQuestions) {
+        setFinalFeedback("You are fit to be a chemist");
+      } else if (newCorrectCount > 0) {
+        setFinalFeedback("You have the potential to be a chemist");
+      } else {
+        setFinalFeedback("You are not good at this topic");
+      }
     }
   }
 
