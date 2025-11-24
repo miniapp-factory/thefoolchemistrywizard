@@ -30,6 +30,10 @@ export default function ChemistryWizard() {
   const [feedback, setFeedback] = useState<string>("");
   const [score, setScore] = useState<number>(0);
   const [streak, setStreak] = useState<number>(0);
+  const [answeredCount, setAnsweredCount] = useState<number>(0);
+  const [correctCount, setCorrectCount] = useState<number>(0);
+  const [totalQuestions, setTotalQuestions] = useState<number>(0);
+  const [finalFeedback, setFinalFeedback] = useState<string>("");
   const [bossActive, setBossActive] = useState<boolean>(false);
   const [bossQuestion, setBossQuestion] = useState<string>("");
   const [bossAnswer, setBossAnswer] = useState<string>("");
@@ -67,9 +71,39 @@ export default function ChemistryWizard() {
       <h1 className="text-3xl font-bold">THEFOOLCHEMISTRYWIZARD</h1>
       <p className="text-muted-foreground">Welcome to the Alchemists Lab.</p>
       <div className="flex flex-col gap-2">
-        <Button onClick={() => setMode("Theory")}>1 The Magicians Theory</Button>
-        <Button onClick={() => setMode("Solving")}>2 The Chariots Balance</Button>
-        <Button onClick={() => setMode("Quiz")}>3 The Hermits Trivia</Button>
+        <Button onClick={() => {
+          setMode("Theory");
+          const list = questions["Theory"];
+          setQuestion(list[0].q);
+          setAnswer("");
+          setFeedback("");
+          setAnsweredCount(0);
+          setCorrectCount(0);
+          setTotalQuestions(list.length);
+          setFinalFeedback("");
+        }}>1 The Magicians Theory</Button>
+        <Button onClick={() => {
+          setMode("Solving");
+          const list = questions["Solving"];
+          setQuestion(list[0].q);
+          setAnswer("");
+          setFeedback("");
+          setAnsweredCount(0);
+          setCorrectCount(0);
+          setTotalQuestions(list.length);
+          setFinalFeedback("");
+        }}>2 The Chariots Balance</Button>
+        <Button onClick={() => {
+          setMode("Quiz");
+          const list = questions["Quiz"];
+          setQuestion(list[0].q);
+          setAnswer("");
+          setFeedback("");
+          setAnsweredCount(0);
+          setCorrectCount(0);
+          setTotalQuestions(list.length);
+          setFinalFeedback("");
+        }}>3 The Hermits Trivia</Button>
       </div>
     </main>
   );
@@ -108,6 +142,15 @@ export default function ChemistryWizard() {
       <div className="flex gap-2">
         <Button onClick={() => { setBossActive(false); setScore(0); setStreak(0); setMode(null); }}>Menu</Button>
         <Button onClick={handleBossNext}>Next</Button>
+      </div>
+    </main>
+  );
+  const finalScreen = (
+    <main className="flex flex-col items-center gap-4 p-4">
+      <img src="/logo.png" alt="Final" width={512} height={512} className="rounded-md" />
+      <h2 className="text-2xl">{finalFeedback}</h2>
+      <div className="flex gap-2">
+        <Button onClick={() => { setMode(null); setFinalFeedback(""); }}>Menu</Button>
       </div>
     </main>
   );
@@ -164,6 +207,7 @@ export default function ChemistryWizard() {
   }
 
   if (bossActive) return bossScreen;
+  if (finalFeedback) return finalScreen;
   if (!mode) return startScreen;
   if (!question) return questionScreen;
   return questionScreen;
