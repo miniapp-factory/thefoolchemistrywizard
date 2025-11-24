@@ -158,3 +158,11 @@
 +4 Spacing Ignore extra spaces or commas in lists. Example 1 2 1 is the same as 1,2,1.
 +1. No More "Case Sensitive" ErrorsBefore: If you typed "hcl" but the answer was "HCl", the AI would say "Wrong".Now: The AI is instructed to ignore capitalization.Input: nacl, NACL, or NaCl → ALL CORRECT.2. "Big Numbers" are Okay (Subscript Tolerance)Before: You had to know how to format small numbers (subscripts) which is hard to type on a phone.Now: The AI treats regular text numbers as chemical subscripts.Input: H2SO4 (standard text) → Read as: $H_2SO_4$ (Correct).3. Interchangeable Answers (Abbreviation)Before: If the question asked "Name this" and you typed the formula, it might fail.Now: It accepts both the Name and the Formula unless specifically told otherwise.Question: "What is Table Salt?"Input: Sodium Chloride OR NaCl → BOTH CORRECT.4. Spacing ForgivenessNow: It doesn't care if you use commas or spaces for balancing equations.Input: 1, 2, 1 OR 1 2 1 → BOTH CORRECT.Getty ImagesExploreThis makes the "mini-app" feel much smarter and less frustrating to play!
 +
+
+# 2025-11-24 14:26:47.052968
++Make the first question appear when clicking the type of question they want, then show feedback after they answer all the question like if they got all the answer correct then they are fit to be chemist, if one is wrong worng then the display is you have  the potential to be a chemist else you are not good at this topic
++
+
+# 2025-11-24 14:26:47.053461
++Make the first question appear when clicking the type of question they want, then show feedback after they answer all the question like if they got all the answer correct then they are fit to be chemist, if one is wrong worng then the display is you have  the potential to be a chemist else you are not good at this topic
++
