@@ -43,13 +43,13 @@ export default function ChemistryWizard() {
 
   const startScreen = (
     <main className="flex flex-col items-center gap-4 p-4">
-      <img src="/logo.png" alt="Wizard" width={512} height={512} className="rounded-md" />
-      <h1 className="text-3xl font-bold">Chem Wizard Adventure</h1>
+      <img src="/logo.png" alt="Laughing wizard in jester hat" width={512} height={512} className="rounded-md" />
+      <h1 className="text-3xl font-bold">THEFOOLCHEMISTRYWIZARD</h1>
       <p className="text-muted-foreground">Welcome to the Alchemists Lab.</p>
       <div className="flex flex-col gap-2">
-        <Button onClick={() => setMode("Theory")}>1 Theory Potion</Button>
-        <Button onClick={() => setMode("Solving")}>2 Balancing Spells</Button>
-        <Button onClick={() => setMode("Quiz")}>3 Rapid Fire Runes</Button>
+        <Button onClick={() => setMode("Theory")}>1 The Magicians Theory</Button>
+        <Button onClick={() => setMode("Solving")}>2 The Chariots Balance</Button>
+        <Button onClick={() => setMode("Quiz")}>3 The Hermits Trivia</Button>
       </div>
     </main>
   );
@@ -97,13 +97,13 @@ export default function ChemistryWizard() {
     if (correct) {
       setScore(score + 1);
       setStreak(streak + 1);
-      setFeedback("Spell Successful! Score: " + (score + 1));
+      setFeedback("THE FOOL IS PLEASED! Score: " + (score + 1));
       if (streak + 1 === 5) {
         setBossActive(true);
         setBossQuestion(bossQuestions[mode!][0].q);
       }
     } else {
-      setFeedback(`The potion failed. Correct answer: ${questions[mode!][0].a}`);
+      setFeedback(`YOU STUMBLE IN IGNORANCE. Correct answer: ${questions[mode!][0].a}`);
       setStreak(0);
     }
   }

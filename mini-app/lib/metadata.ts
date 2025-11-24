@@ -1,3 +1,3 @@
-export const title = "Chem Wizard Adventure";
-export const description = "Embark on a magical chemistry adventure with interactive challenges!";
+export const title = "THEFOOLCHEMISTRYWIZARD";
+export const description = "Test your chemistry knowledge in a whimsical tarot-themed adventure!";
 export const url = process.env.NEXT_PUBLIC_URL;
