@@ -148,7 +148,7 @@ export default function ChemistryWizard() {
   );
 
   function handleSubmit() {
-    const currentQ = questions[mode! as keyof typeof questions]["All"].find(
+    const currentQ = questions[mode!].find(
       (q) => q.q === question
     );
     const correct =
@@ -162,7 +162,7 @@ export default function ChemistryWizard() {
       setFeedback(`THE FOOL IS PLEASED! Score: ${score + 1}`);
       if (streak + 1 === 5) {
         setBossActive(true);
-        setBossQuestion(bossQuestions[mode!]["All"][0].q);
+        setBossQuestion(bossQuestions["Theory"][0].q);
       }
     } else {
       setFeedback(
@@ -188,7 +188,7 @@ export default function ChemistryWizard() {
     const correct =
       bossQuestion &&
       normalizeAnswer(bossAnswer) ===
-        normalizeAnswer(bossQuestions[mode! as keyof typeof bossQuestions][0].a);
+        normalizeAnswer(bossQuestions["Theory"][0].a);
     if (correct) {
       setScore((prev) => prev + 10);
       setStreak(0);
@@ -202,7 +202,7 @@ export default function ChemistryWizard() {
   }
 
   function handleNext() {
-    const list = questions[mode! as keyof typeof questions]["All"];
+    const list = questions[mode!];
     const next = list[Math.floor(Math.random() * list.length)];
     setQuestion(next.q);
     setAnswer("");
