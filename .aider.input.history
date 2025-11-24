@@ -166,3 +166,17 @@
 # 2025-11-24 14:26:47.053461
 +Make the first question appear when clicking the type of question they want, then show feedback after they answer all the question like if they got all the answer correct then they are fit to be chemist, if one is wrong worng then the display is you have  the potential to be a chemist else you are not good at this topic
 +
+
+# 2025-11-24 14:54:48.753164
++Change the logo to a more symbolic The fool tarot card with chemistry combine
++
++Prompt change the name you arwe the app CHEMFOOL
++Combine all the question into one category no more 3 type of question make them into one category dont for the decision, and answerequalsIgnoreCase("") so it does change the fact they answer correctly but has different case, Then show a pic if display you are fit to be a Chemist displlay it wiith a picture of a tarot card chemist, else if you have the potential to be a chemist hen show a picture working hard tarot card trying to reach the chimist level, else you are not fir to be c=a chemist shwo an image f a tarot car card finding it own path away from chemicals and chem related
++
+
+# 2025-11-24 14:54:48.754107
++Change the logo to a more symbolic The fool tarot card with chemistry combine
++
++Prompt change the name you arwe the app CHEMFOOL
++Combine all the question into one category no more 3 type of question make them into one category dont for the decision, and answerequalsIgnoreCase("") so it does change the fact they answer correctly but has different case, Then show a pic if display you are fit to be a Chemist displlay it wiith a picture of a tarot card chemist, else if you have the potential to be a chemist hen show a picture working hard tarot card trying to reach the chimist level, else you are not fir to be c=a chemist shwo an image f a tarot car card finding it own path away from chemicals and chem related
++
