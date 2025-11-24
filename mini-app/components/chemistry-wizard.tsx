@@ -3,6 +3,26 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
+function normalizeAnswer(str: string): string {
+  // Convert subscript digits to normal digits, remove spaces/commas, and lowercase
+  const subscriptMap: Record<string, string> = {
+    "₀": "0",
+    "₁": "1",
+    "₂": "2",
+    "₃": "3",
+    "₄": "4",
+    "₅": "5",
+    "₆": "6",
+    "₇": "7",
+    "₈": "8",
+    "₉": "9",
+  };
+  return str
+    .toLowerCase()
+    .replace(/[₀₁₂₃₄₅₆₇₈₉]/g, (c) => subscriptMap[c] ?? c)
+    .replace(/[,\s]/g, "");
+}
+
 export default function ChemistryWizard() {
   const [mode, setMode] = useState<keyof typeof questions | null>(null);
   const [question, setQuestion] = useState<string>("");
@@ -93,27 +113,35 @@ export default function ChemistryWizard() {
   );
 
   function handleSubmit() {
-    const correct = question && answer.trim().toLowerCase() === questions[mode! as keyof typeof questions][0].a.toLowerCase();
+    const correct =
+      question &&
+      normalizeAnswer(answer) ===
+        normalizeAnswer(questions[mode! as keyof typeof questions][0].a);
     if (correct) {
-      setScore(score + 1);
-      setStreak(streak + 1);
-      setFeedback("THE FOOL IS PLEASED! Score: " + (score + 1));
+      setScore((prev) => prev + 1);
+      setStreak((prev) => prev + 1);
+      setFeedback(`THE FOOL IS PLEASED! Score: ${score + 1}`);
       if (streak + 1 === 5) {
         setBossActive(true);
         setBossQuestion(bossQuestions[mode!][0].q);
       }
     } else {
-      setFeedback(`YOU STUMBLE IN IGNORANCE. Correct answer: ${questions[mode!][0].a}`);
+      setFeedback(
+        `YOU STUMBLE IN IGNORANCE. Correct answer: ${questions[mode!][0].a}`
+      );
       setStreak(0);
     }
   }
 
   function handleBossSubmit() {
-    const correct = bossQuestion && bossAnswer.trim().toLowerCase() === bossQuestions[mode! as keyof typeof bossQuestions][0].a.toLowerCase();
+    const correct =
+      bossQuestion &&
+      normalizeAnswer(bossAnswer) ===
+        normalizeAnswer(bossQuestions[mode! as keyof typeof bossQuestions][0].a);
     if (correct) {
-      setScore(score + 5);
+      setScore((prev) => prev + 10);
       setStreak(0);
-      setFeedback(`Boss defeated! Bonus points awarded. Score: ${score + 5}`);
+      setFeedback(`Boss defeated! Bonus points awarded. Score: ${score + 10}`);
     } else {
       setFeedback(`The Guardian was too strong. Game Over. Final Score: ${score}`);
       setScore(0);
