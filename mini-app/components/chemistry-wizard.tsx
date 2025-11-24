@@ -39,15 +39,11 @@ export default function ChemistryWizard() {
   const [bossAnswer, setBossAnswer] = useState<string>("");
 
   const questions = {
-    Theory: [
+    All: [
       { q: "What is the chemical formula for water?", a: "H₂O" },
       { q: "Name the compound with formula NaCl.", a: "Sodium chloride" },
-    ],
-    Solving: [
       { q: "Balance the equation: H₂ + O₂ → H₂O", a: "2 H₂ + O₂ → 2 H₂O" },
       { q: "Calculate the molar mass of CO₂.", a: "44 g/mol" },
-    ],
-    Quiz: [
       { q: "Which element has atomic number 79?", a: "Gold" },
       { q: "What is the most abundant gas in Earth's atmosphere?", a: "Nitrogen" },
     ],
@@ -67,13 +63,13 @@ export default function ChemistryWizard() {
 
   const startScreen = (
     <main className="flex flex-col items-center gap-4 p-4">
-      <img src="/logo.png" alt="Laughing wizard in jester hat" width={512} height={512} className="rounded-md" />
+      <img src="/the-fool-chemistry.png" alt="The Fool tarot card with chemistry" width={512} height={512} className="rounded-md" />
       <h1 className="text-3xl font-bold">THEFOOLCHEMISTRYWIZARD</h1>
       <p className="text-muted-foreground">Welcome to the Alchemists Lab.</p>
       <div className="flex flex-col gap-2">
         <Button onClick={() => {
-          setMode("Theory");
-          const list = questions["Theory"];
+          setMode("All");
+          const list = questions["All"];
           setQuestion(list[0].q);
           setAnswer("");
           setFeedback("");
@@ -81,36 +77,14 @@ export default function ChemistryWizard() {
           setCorrectCount(0);
           setTotalQuestions(list.length);
           setFinalFeedback("");
-        }}>1 The Magicians Theory</Button>
-        <Button onClick={() => {
-          setMode("Solving");
-          const list = questions["Solving"];
-          setQuestion(list[0].q);
-          setAnswer("");
-          setFeedback("");
-          setAnsweredCount(0);
-          setCorrectCount(0);
-          setTotalQuestions(list.length);
-          setFinalFeedback("");
-        }}>2 The Chariots Balance</Button>
-        <Button onClick={() => {
-          setMode("Quiz");
-          const list = questions["Quiz"];
-          setQuestion(list[0].q);
-          setAnswer("");
-          setFeedback("");
-          setAnsweredCount(0);
-          setCorrectCount(0);
-          setTotalQuestions(list.length);
-          setFinalFeedback("");
-        }}>3 The Hermits Trivia</Button>
+        }}>Start Quiz</Button>
       </div>
     </main>
   );
 
   const questionScreen = (
     <main className="flex flex-col items-center gap-4 p-4">
-      <img src="/logo.png" alt="Question" width={512} height={512} className="rounded-md" />
+      <img src="/the-fool-chemistry.png" alt="Question" width={512} height={512} className="rounded-md" />
       <h2 className="text-2xl">{question}</h2>
       <input
         type="text"
@@ -147,7 +121,25 @@ export default function ChemistryWizard() {
   );
   const finalScreen = (
     <main className="flex flex-col items-center gap-4 p-4">
-      <img src="/logo.png" alt="Final" width={512} height={512} className="rounded-md" />
+      <img
+        src={
+          finalFeedback === "You are fit to be a chemist"
+            ? "/fit-chemist.png"
+            : finalFeedback === "You have the potential to be a chemist"
+            ? "/potential-chemist.png"
+            : "/not-chemist.png"
+        }
+        alt={
+          finalFeedback === "You are fit to be a chemist"
+            ? "Tarot card of a chemist"
+            : finalFeedback === "You have the potential to be a chemist"
+            ? "Tarot card of a working chemist"
+            : "Tarot card of a wanderer"
+        }
+        width={512}
+        height={512}
+        className="rounded-md"
+      />
       <h2 className="text-2xl">{finalFeedback}</h2>
       <div className="flex gap-2">
         <Button onClick={() => { setMode(null); setFinalFeedback(""); }}>Menu</Button>
@@ -156,10 +148,12 @@ export default function ChemistryWizard() {
   );
 
   function handleSubmit() {
+    const currentQ = questions[mode! as keyof typeof questions]["All"].find(
+      (q) => q.q === question
+    );
     const correct =
-      question &&
-      normalizeAnswer(answer) ===
-        normalizeAnswer(questions[mode! as keyof typeof questions][0].a);
+      currentQ &&
+      normalizeAnswer(answer) === normalizeAnswer(currentQ.a);
     const newCorrectCount = correctCount + (correct ? 1 : 0);
     if (correct) {
       setScore((prev) => prev + 1);
@@ -168,11 +162,13 @@ export default function ChemistryWizard() {
       setFeedback(`THE FOOL IS PLEASED! Score: ${score + 1}`);
       if (streak + 1 === 5) {
         setBossActive(true);
-        setBossQuestion(bossQuestions[mode!][0].q);
+        setBossQuestion(bossQuestions[mode!]["All"][0].q);
       }
     } else {
       setFeedback(
-        `YOU STUMBLE IN IGNORANCE. Correct answer: ${questions[mode!][0].a}`
+        `YOU STUMBLE IN IGNORANCE. Correct answer: ${
+          currentQ ? currentQ.a : ""
+        }`
       );
       setStreak(0);
     }
@@ -206,7 +202,7 @@ export default function ChemistryWizard() {
   }
 
   function handleNext() {
-    const list = questions[mode! as keyof typeof questions];
+    const list = questions[mode! as keyof typeof questions]["All"];
     const next = list[Math.floor(Math.random() * list.length)];
     setQuestion(next.q);
     setAnswer("");
